@@ -2,21 +2,16 @@ class Solution {
 public:
     bool areAlmostEqual(string s1, string s2) {
         int n=s1.size();
+        int cnt=0;
+        map<char,int>mp1;
+        map<char,int>mp2;
+        for(int i=0;i<n;i++){
+            mp1[s1[i]]++;
+            mp2[s2[i]]++;
+            if(s1[i]!=s2[i]) cnt++;
+        }
 
-        map<char,vector<int>>mp;
-        for(int i=0;i<n;i++){
-            mp[s1[i]].push_back(i);
-        }
-        if(s1==s2) return true;
-        for(int i=0;i<n;i++){
-            if(s1[i]==s2[i]) continue;
-            for(auto it:mp[s2[i]]){
-                int ind=it;
-                swap(s1[i],s1[ind]);
-                if(s1==s2) return true;
-                swap(s1[i],s1[ind]);
-            }
-        }
+        if(cnt==0 || cnt==2 && mp1==mp2) return  true;
         return false;
     }
 };
