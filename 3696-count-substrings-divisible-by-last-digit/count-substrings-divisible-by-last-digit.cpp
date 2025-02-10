@@ -19,6 +19,7 @@ public:
     long long countSubstrings(string s) {
         n=s.size();
         for(int i=0;i<=n;i++) for(int j=0;j<10;j++) for(int k=0;k<10;k++) dp[i][j][k]=-1;
+        // memset(dp,-1,sizeof(dp));
         ll ans=0;
         for(int i=1;i<=9;i++) for(int j=0;j<n;j++) ans+=rec(s,j,0,i);
         return ans;
