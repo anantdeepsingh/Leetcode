@@ -23,4 +23,7 @@ public:
         memset(dp,-1,sizeof(dp));
         return solve(0,0,nums);
     }
+
+    // time complexity for the problem would be aroud O(n*2);
+    // space complexity for the problem would be around O(n*2) + O(n) for recursive stack space
 };
