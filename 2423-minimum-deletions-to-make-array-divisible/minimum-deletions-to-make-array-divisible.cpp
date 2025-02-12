@@ -9,20 +9,13 @@ public:
         }
         sort(begin(nums),end(nums));
         int cnt=0;
-        bool flag=false;
         for(int i=0;i<n;i++){
             if(hcf<nums[i]) return -1;
             if(hcf%nums[i]==0){
-                flag=true;
-                break;
+                return cnt;
             }
             cnt++;
         }
-
-        if(flag){
-            return cnt;
-        }
-
         return -1;
     }
 };
