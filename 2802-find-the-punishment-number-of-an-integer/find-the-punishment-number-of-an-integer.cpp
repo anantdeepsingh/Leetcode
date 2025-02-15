@@ -8,7 +8,7 @@ public:
         for (int i = start; i < s.size(); i++) {
             string t = s.substr(start, i - start + 1);
             int val = stoi(t);
-            if (sum + val > target) break;  // Optimization to stop early
+            if (sum + val > target) break;  
             if (check(i + 1, sum + val, s, target)) {
                 return true;
             }
@@ -20,7 +20,7 @@ public:
         int ans = 0;
         for (int i = 1; i <= n; i++) {
             string s = to_string(i * i);
-            if (check(0, 0, s, i)) {  // If i*i can be split into segments summing to i
+            if (check(0, 0, s, i)) {  
                 ans += i * i;
             }
         }
