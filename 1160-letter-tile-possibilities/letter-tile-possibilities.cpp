@@ -12,7 +12,8 @@ public:
         for(int i=0;i<26;i++){
             if(count[i]>0){
                 count[i]--;
-                s.push_back('A'+i);
+                char ch=i+'A';
+                s+=ch;
                 solve(ind+1,count,n,s);
                 s.pop_back();
                 count[i]++;
