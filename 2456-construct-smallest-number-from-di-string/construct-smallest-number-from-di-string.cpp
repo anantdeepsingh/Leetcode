@@ -4,8 +4,7 @@ public:
     set<string>st;
     bool solve(int ind,string &s,string p,int n,vector<int>&count){
         if(ind==n){
-            if(s.size()==n+1) return true;
-            return false;
+            return true;
         }
 
         int size=s.size();
