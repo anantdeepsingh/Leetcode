@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    set<string>st;
+    // set<string>st;
     bool solve(int ind,string &s,string p,int n,vector<int>&count){
         if(ind==n){
             return true;
