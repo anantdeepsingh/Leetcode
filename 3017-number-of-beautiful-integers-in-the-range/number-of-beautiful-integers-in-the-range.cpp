@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    int dp[11][2][2][11][11][20];
+    int dp[11][2][2][11][11][21];
     int solve(int ind,bool is_smaller,bool is_started,int cnt1,int cnt2,int rem,string &s,int k){
 
         if(ind==s.size()){
