@@ -1,34 +1,27 @@
 class Solution {
 public:
-    const int mod=1e9+7;
     int numOfSubarrays(vector<int>& arr) {
-        int n=arr.size();
-        vector<int>prefix(n,0);
-        prefix[0]=arr[0];
-        for(int i=1;i<n;i++){
-            prefix[i]=prefix[i-1]+arr[i];
-        }
+        const int MOD = 1e9 + 7;
+        int count = 0, prefixSum = 0;
+        // evenCount starts as 1 since the initial sum (0) is even
+        int oddCount = 0, evenCount = 1;
 
-        for(int i=0;i<n;i++){
-            prefix[i]%=2;
-        }
-        long long tcnt=1ll*n*(n+1);
-        tcnt=tcnt/2;
-        tcnt=tcnt%mod;
-        int cnt=0;
-        map<int,int>mp;
-        for(int i=0;i<n;i++){
-            int key=prefix[i];
-            if(key==0){
-                cnt=(cnt+1)%mod;
+        for (int num : arr) {
+            prefixSum += num;
+            // If current prefix sum is even, add the number of odd subarrays
+            if (prefixSum % 2 == 0) {
+                count += oddCount;
+                evenCount++;
+            } else {
+                // If current prefix sum is odd, add the number of even
+                // subarrays
+                count += evenCount;
+                oddCount++;
             }
-            if(mp.count(key)){
-                cnt=(cnt+mp[key])%mod;
-            }
-            mp[key]++;
+
+            count %= MOD;  // To handle large results
         }
 
-        return (tcnt-cnt+mod)%mod;
-
+        return count;
     }
 };
