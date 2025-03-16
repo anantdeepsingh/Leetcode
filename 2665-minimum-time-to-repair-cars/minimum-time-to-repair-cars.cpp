@@ -12,7 +12,7 @@ public:
     }
     long long repairCars(vector<int>& ranks, int cars) {
         n=1ll*ranks.size();
-        ll low=0,high=1e18;
+        ll low=0,high=1e14;
         ll ans=0;
         while(low<=high){
             ll mid=low+(high-low)/2;
