@@ -5,7 +5,7 @@ public:
         int n=skill.size();
         int m=mana.size();
         vector<ll>prefix(n+1,0ll);
-        vector<ll>mp(n,0ll);
+        unordered_map<ll,ll>mp;
         prefix[0]=1ll*skill[0];
         for(int i=1;i<n;i++){
             prefix[i]=prefix[i-1]+1ll*skill[i];
@@ -29,7 +29,7 @@ public:
                     time=max(time,mp[j]-prefix[j-1]*1ll*val);
                 }
             }
-
+            
             for(int j=0;j<n;j++){
                 mp[j]=time+1ll*skill[j]*val;
                 time=mp[j];
