@@ -10,21 +10,13 @@ public:
         int ind=-1;
         map<char,int>mp;
         vector<int>ans;
+        int end=-1;
         for(int i=0;i<n;i++){
-            mp[s[i]]++;
-            bool flag=true;
-            for(auto it:mp){
-                char ch=it.first;
-                if(last[ch]>i){
-                    flag=false;
-                    break;
-                }
-            }
-
-            if(flag){
-                ans.push_back(i-ind);
-                ind=i;
-            }
+           end=max(end,last[s[i]]);
+           if(end==i){
+            ans.push_back(i-ind);
+            ind=i;
+           }
 
         }
         return ans;
