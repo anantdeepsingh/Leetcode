@@ -12,15 +12,15 @@
 class Solution {
 public:
 
-    bool getPath(TreeNode* root, TreeNode * p, vector<TreeNode*>&ans){
-        if(root==NULL) return false;
-        ans.push_back(root);
-        if(root->val==p->val) return true;
-        if(getPath(root->left,p,ans) || getPath(root->right,p,ans)) return true;
+    // bool getPath(TreeNode* root, TreeNode * p, vector<TreeNode*>&ans){
+    //     if(root==NULL) return false;
+    //     ans.push_back(root);
+    //     if(root->val==p->val) return true;
+    //     if(getPath(root->left,p,ans) || getPath(root->right,p,ans)) return true;
 
-        ans.pop_back();
-        return false;
-    }
+    //     ans.pop_back();
+    //     return false;
+    // }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
        if(root==NULL || root==p || root==q){
         return root;
