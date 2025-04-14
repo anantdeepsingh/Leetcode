@@ -5,7 +5,7 @@ public:
         cout<<n<<endl;
         if(n==1) return 1;
         if(n==2) return 2;
-        vector<int>v1(10000,0),v2(10000,0);
+        vector<int>v1(100000,0),v2(100000,0);
         map<int,int>mp;
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
