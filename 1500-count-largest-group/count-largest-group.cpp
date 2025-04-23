@@ -10,7 +10,7 @@ public:
         return sum;
     }
     int countLargestGroup(int n) {
-        vector<int>ans(100,0);
+        vector<int>ans(37,0);
         for(int i=1;i<=n;i++){
             int sum=sumOfDigits(i);
             cout<<sum<<endl;
