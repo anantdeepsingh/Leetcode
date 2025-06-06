@@ -1,41 +1,34 @@
 class Solution {
 public:
-    // Helper function to find the lexicographically smallest remaining character
-    char l(vector<int>& freq) {
-        for (int i = 0; i < 26; i++) {
-            if (freq[i]) return 'a' + i;
-        }
-        return 'a';
-    }
-
     string robotWithString(string s) {
+        set<pair<char, int>> order;  // keeps (char, index) in lexicographic order
         stack<char> st;
-        string t = "";
-        vector<int> freq(26);
+        int n = s.size();
 
-        // Count frequency of each character in s
-        for (char ch : s) {
-            freq[ch - 'a']++;
+        // Insert all characters with their indices into the set
+        for (int i = 0; i < n; i++) {
+            order.insert({s[i], i});
         }
 
-        // Iterate over characters in s
-        for (char ch : s) {
-            st.push(ch);
-            freq[ch - 'a']--;
+        string ans = "";
+        for (int i = 0; i < n; i++) {
+            order.erase({s[i], i});  // remove current char from set
 
-            // Pop from stack to result if stack top ≤ smallest remaining char
-            while (!st.empty() && st.top() <= l(freq)) {
-                t += st.top();
+            st.push(s[i]);  // push current char to stack
+
+            // While top of stack is <= the smallest remaining character
+            while (!st.empty() && (order.empty() || st.top() <= order.begin()->first)) {
+                ans += st.top();
                 st.pop();
             }
         }
 
-        // Pop remaining characters
+        // Empty the remaining stack
         while (!st.empty()) {
-            t += st.top();
+            ans += st.top();
             st.pop();
         }
 
-        return t;
+        return ans;
     }
 };
