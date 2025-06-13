@@ -15,11 +15,8 @@ public:
         if(n==1){
             return 0;
         }
-        int maxi=*max_element(nums.begin(),nums.end());
-        int mini=*min_element(nums.begin(),nums.end());
-        cout<<maxi<<" "<<mini<<endl;
         sort(nums.begin(),nums.end());
-        int low=0,high=maxi-mini;
+        int low=0,high=nums[n-1]-nums[0];
         int ans=0;
         cout<<high<<endl;
         while(low<=high){
