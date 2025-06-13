@@ -23,7 +23,7 @@ public:
             int mid=low+(high-low)/2;
             if(check(mid,p,nums)){
                 ans=mid;
-                cout<<ans<<endl;
+                // cout<<ans<<endl;
                 high=mid-1;
             }
             else{
