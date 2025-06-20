@@ -1,9 +1,5 @@
-SELECT
-  CASE
-    WHEN (SELECT COUNT(DISTINCT salary) FROM Employee) >= 2 THEN
-      (SELECT DISTINCT salary 
-       FROM Employee 
-       ORDER BY salary DESC 
-       LIMIT 1 OFFSET 1)
-    ELSE NULL
-  END AS SecondHighestSalary;
+select max(p1.salary) as SecondHighestSalary
+from Employee p1
+join Employee p2
+on p1.salary<p2.salary
+-- join helps in putting null value by it self no need to put it manually 
