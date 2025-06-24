@@ -1,35 +1,35 @@
 class Solution {
 public:
-    string longestPalindrome(string s) {
-        int n = s.size();
-        string t = s;
-        reverse(t.begin(), t.end());
+    int n, maxLenAns = 0, startInd = 0;
 
-        // dp[i][j] = length of longest common substring ending at s[i-1] and t[j-1]
-        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+    bool check(const string &s, int i, int j){
+        while(i < j){
+            if(s[i] != s[j]) return false;
+            i++; j--;
+        }
+        return true;
+    }
 
-        int maxLen = 0;
-        int endIndex = 0; // End index in original string s
+    void findMaxLen(int ind, int cnt, string &s){
+        if(cnt == 0 || ind == n) return;
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (s[i - 1] == t[j - 1]) {
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-
-                    // We need to check if the substring is a valid palindrome
-                    int origStart = i - dp[i][j];
-                    int revStart = n - j;
-
-                    if (origStart == revStart) { // positions match in original string
-                        if (dp[i][j] > maxLen) {
-                            maxLen = dp[i][j];
-                            endIndex = i; // mark the end of substring in s
-                        }
-                    }
+        for(int j = ind; j < n; j++){
+            if(check(s, ind, j)){
+                int len = j - ind + 1;
+                if(len > maxLenAns){
+                    maxLenAns = len;
+                    startInd = ind;
                 }
+                findMaxLen(j + 1, cnt - 1, s);
             }
         }
 
-        return s.substr(endIndex - maxLen, maxLen);
+        findMaxLen(ind + 1, cnt, s);
+    }
+
+    string longestPalindrome(string s) {
+        n = s.size();
+        findMaxLen(0, 1, s);
+        return s.substr(startInd, maxLenAns);
     }
 };
