@@ -2,7 +2,7 @@ class Solution {
 public:
     int ans = 0;
 
-    void dfs(TreeNode* root, long long sum, int targetSum, map<long long, int> mp) {
+    void dfs(TreeNode* root, long long sum, int targetSum, map<long long, int>&mp) {
         if (!root) return;
 
         sum += root->val;
