@@ -15,7 +15,7 @@ public:
     void f(TreeNode* root){
         if(root==NULL) return;
         f(root->left);
-        if(root!=NULL) v.push_back(root->val);
+        v.push_back(root->val);
         f(root->right);
         return;
     }
