@@ -9,12 +9,16 @@ public:
         if (sum == targetSum) ans++;
         ans += mp[sum - targetSum];
 
-        mp[sum]++; // add current prefix sum
+        mp[sum]++;
 
         dfs(root->left, sum, targetSum, mp);
         dfs(root->right, sum, targetSum, mp);
 
-        mp[sum]--; // backtrack
+        mp[sum]--; 
+
+        if(mp[sum]==0){
+            mp.erase(sum);
+        }
     }
 
     int pathSum(TreeNode* root, int targetSum) {
