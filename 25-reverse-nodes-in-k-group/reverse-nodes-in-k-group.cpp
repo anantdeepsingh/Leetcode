@@ -10,55 +10,48 @@
  */
 class Solution {
 public:
-    ListNode* rev(ListNode* head){
+    ListNode* reverse(ListNode* head){
+        if(head==NULL || head->next==NULL) return head;
         ListNode* temp=head;
         ListNode* prev=NULL;
         while(temp!=NULL){
-            ListNode* front=temp->next;
+            ListNode* nextNode=temp->next;
             temp->next=prev;
             prev=temp;
-            temp=front;
+            temp=nextNode;
         }
         return prev;
     }
-    ListNode* find(ListNode* head,int k){
-        ListNode* temp=head;
-        ListNode* prev=NULL;
+    ListNode* find(ListNode* temp,int k){
         k--;
         while(temp!=NULL && k>0){
-            prev=temp;
             temp=temp->next;
             k--;
         }
-
         return temp;
     }
     ListNode* reverseKGroup(ListNode* head, int k) {
         ListNode* temp=head;
-        ListNode* prev=NULL;
+        ListNode* prevNode=NULL;
         while(temp!=NULL){
             ListNode* kthNode=find(temp,k);
-            if(kthNode){
-                cout<<kthNode->val<<endl;
-            }
             if(kthNode==NULL){
-                if(prev) prev->next=temp;
+               if(prevNode) prevNode->next=temp;
                 break;
             }
+
             ListNode* nextNode=kthNode->next;
             kthNode->next=NULL;
-            ListNode* newHead=rev(temp);
-
+            reverse(temp);
             if(temp==head){
-                head=newHead ;   
+                head=kthNode;
             }
             else{
-                prev->next=newHead;
+                prevNode->next=kthNode;
             }
-            prev=temp;
+            prevNode=temp;
             temp=nextNode;
         }
-
         return head;
     }
 };
