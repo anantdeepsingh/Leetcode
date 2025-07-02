@@ -42,12 +42,12 @@ public:
 
             ListNode* nextNode=kthNode->next;
             kthNode->next=NULL;
-            reverse(temp);
+            ListNode* front=reverse(temp);
             if(temp==head){
-                head=kthNode;
+                head=front;
             }
             else{
-                prevNode->next=kthNode;
+                prevNode->next=front;
             }
             prevNode=temp;
             temp=nextNode;
@@ -55,3 +55,5 @@ public:
         return head;
     }
 };
+// time complexity : O(2*n)
+//  space complexity: O(1)
