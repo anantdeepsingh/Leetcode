@@ -19,6 +19,9 @@ public:
     void add(int index, int val) {
         int t=pos[index];
         mp[t]--;
+        if(mp[t]==0){
+            mp.erase(t);
+        }
         mp[t+val]++;
         pos[index]=t+val;
     }
