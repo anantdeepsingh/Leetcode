@@ -1,62 +1,81 @@
 class Solution {
 public:
-    int maxFreeTime(int eventTime, vector<int>& st, vector<int>& et) {
-        int n = st.size();
-        vector<int>pre(n+1,0),suf(n+1,0);
-
-        int end = 0, ans = st[0];
-
-        for(int i=0;i<n;i++){
-            int gap = st[i]-end;
+    int maxFreeTime(int eventTime, vector<int>& startTime, vector<int>& endTime) {
+        int n=startTime.size();
+        vector<int>dist;
+        int k=1;
+        int ans=startTime[0];
+        dist.push_back(startTime[0]);
+        for(int i=1;i<n;i++){
+            int gap=startTime[i]-endTime[i-1];
             ans=max(ans,gap);
-            end=et[i];
-            pre[i+1]=max(pre[i],gap);
+            dist.push_back(gap);
+        }
+        dist.push_back(eventTime-endTime[n-1]);
+
+        int l=0,r=0;
+        int maxTime=0;
+        int currTime=0;
+        int sz=dist.size();
+        while(r<sz){
+            currTime+=dist[r];
+            if(r-l+1>(k+1)){
+                currTime-=dist[l];
+                l++;
+            }
+            if(r-l+1==(k+1)){
+                maxTime=max(maxTime,currTime);
+            }
+            r++;
         }
 
+        ans=max(ans,maxTime);
+        ans=max(ans,eventTime-endTime[n-1]);
+        vector<int>maxGap(n,0);
 
-        // for(auto it:pre){
+        maxGap[n-1]=eventTime-endTime[n-1];
+        for(int i=n-2;i>=0;i--){
+            int diff=startTime[i+1]-endTime[i];
+            maxGap[i]=max(diff,maxGap[i+1]);
+        }
+
+        if(maxGap[1]>=endTime[0]-startTime[0]){
+            ans=max(ans,startTime[1]);
+        }
+        // for(int i=1;i<n-1;i++){
+        //     if(maxGap[i+1]>=endTime[i]-startTime[i]){
+        //         ans=max(ans,startTime[i+1]-endTime[i]);
+        //     }
+        // }
+
+        vector<int>maxleft(n,0);
+        maxleft[0]=startTime[0];
+
+        for(int i=1;i<n;i++){
+            int diff=startTime[i]-endTime[i-1];
+            maxleft[i]=max(maxleft[i-1],diff);
+        }
+        // for(auto it:maxGap){
         //     cout<<it<<" ";
         // }
         // cout<<endl;
-
-        ans=max(ans,eventTime-et[n-1]);
-
-        int start = eventTime;
-
-        for(int i=(n-1);i>=0;i--){
-            int gap = start-et[i];
-            start = st[i];
-            suf[i]=max(suf[i+1],gap);
-        }
-
-
-        //  for(auto it:suf){
+        // for(auto it:maxleft){
         //     cout<<it<<" ";
         // }
-        cout<<endl;
-        for(int i=0;i<n;i++){
-            int prevend = (i==0?0:et[i-1]);
-            int nextstart = (i==(n-1)?eventTime:st[i+1]);
-            // cout<<prevend<<" "<<nextstart<<endl;
-            int gap = nextstart-prevend;
-            int len = et[i]-st[i];
-            // pre[i] mere pehle tak kitna maximum hai 
-            // suff[i+1] i+1 se aage kitne maximum 
 
-
-            // box1   g1 box2  g2  box3
-
-            // box1 tak maxi>=box2 len aa gya toh box2 box1 ke aage chala jayega aur gap g1+g2 ho jayega nhi toh g1+g2-len ho jayega
-
-            if((pre[i]>= len) || (suf[i+1]>=len)){
-                ans=max(ans,gap);
+         for(int i=1;i<n-1;i++){
+            if(maxGap[i+1]>=endTime[i]-startTime[i]){
+                ans=max(ans,startTime[i+1]-endTime[i-1]);
             }
-            else{
-                ans=max(ans,gap-len);
+            if(maxleft[i-1]>=endTime[i]-startTime[i]){
+                ans=max(ans,startTime[i+1]-endTime[i-1]);
             }
         }
 
-        return ans;
 
+        if(maxleft[n-2]>=endTime[n-1]-startTime[n-1]){
+            ans=max(ans,eventTime-endTime[n-2]);
+        }
+        return ans;
     }
 };
