@@ -1,47 +1,41 @@
-#define ll long long
-#define pi pair<ll, ll>
-
+#define pi pair<long long,int>
 class Solution {
 public:
     int mostBooked(int n, vector<vector<int>>& meetings) {
-        priority_queue<pi, vector<pi>, greater<pi>> pq;
-        set<ll> availableRooms;
-        vector<ll> roomCount(n, 0);
-
         sort(meetings.begin(), meetings.end());
+        priority_queue<pi, vector<pi>, greater<pi>> pq;
+        priority_queue<int, vector<int>, greater<int>> f;
 
-        for (ll i = 0; i < n; i++) availableRooms.insert(i);
+        for (int i = 0; i < n; i++) f.push(i);
 
-        for (auto& meeting : meetings) {
-            ll start = meeting[0];
-            ll end = meeting[1];
-            ll duration = end - start;
+        vector<int> count(n, 0);
 
-            while (!pq.empty() && pq.top().first <= start) {
-                availableRooms.insert(pq.top().second);
+        for (auto &it : meetings) {
+            while (!pq.empty() && pq.top().first <= it[0]) {
+                int t = pq.top().second;
                 pq.pop();
+                f.push(t);
             }
 
-            if (!availableRooms.empty()) {
-                ll room = *availableRooms.begin();
-                availableRooms.erase(room);
-                pq.push({end, room});
-                roomCount[room]++;
+            if (!f.empty()) {
+                int t = f.top();
+                f.pop();
+                pq.push({1ll*it[1], t});
+                count[t]++;
             } else {
-                auto [free_time, room] = pq.top();
+                int gap = it[1] - it[0];
+                auto [ntime, t] = pq.top();
                 pq.pop();
-                pq.push({free_time + duration, room});
-                roomCount[room]++;
+                pq.push({1ll*ntime + 1ll*gap, t});
+                count[t]++;
             }
         }
 
-        ll maxRoom = 0;
-        for (ll i = 1; i < n; i++) {
-            if (roomCount[i] > roomCount[maxRoom]) {
-                maxRoom = i;
-            }
+        int maxCount = *max_element(count.begin(), count.end());
+        for (int i = 0; i < n; i++) {
+            if (count[i] == maxCount) return i;
         }
 
-        return maxRoom;
+        return 0;
     }
 };
