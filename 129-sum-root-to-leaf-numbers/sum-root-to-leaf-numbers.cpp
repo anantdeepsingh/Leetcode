@@ -12,12 +12,13 @@
 class Solution {
 public:
     int res;
-    void dfs(TreeNode* root,string ans){
+    void dfs(TreeNode* root,string &ans){
         if(root->left==NULL && root->right==NULL){
             ans+=(root->val+'0');
             // cout<<ans<<endl;
             int t=stoi(ans);
             res+=t;
+            ans.pop_back();
             return;
         }
 
@@ -28,6 +29,7 @@ public:
         if(root->right){
             dfs(root->right,ans);
         }
+        ans.pop_back();
     }
     int sumNumbers(TreeNode* root) {
         string ans="";
