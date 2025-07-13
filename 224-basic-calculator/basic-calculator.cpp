@@ -28,7 +28,7 @@ public:
                     res=val+sg*res;
                 }
                 number=0;
-                sign=1;
+                // sign=1;
             }
             else{
                 res+=sign*number;
