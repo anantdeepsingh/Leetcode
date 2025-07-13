@@ -25,7 +25,7 @@ public:
         return true;
     }
     int ans=0;
-    void f(int i,int n,vector<vector<int>>vis){
+    void f(int i,int n,vector<vector<int>>&vis){
         // base case 
         if(i==n){
             ans++;
