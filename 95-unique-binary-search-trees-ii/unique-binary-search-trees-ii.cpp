@@ -12,8 +12,11 @@
 class Solution {
 public:
     // vector<TreeNode*>ans;
+    map<pair<int,int>,vector<TreeNode*>>mp;
     vector<TreeNode*> generateAll(int start,int end){
         vector<TreeNode*>res;
+
+        if(mp.count({start,end})) return mp[{start,end}];
         if(start>end){
             return {NULL};
         }
@@ -36,7 +39,7 @@ public:
             }
         }
 
-        return res;
+        return mp[{start,end}]=res;
 
     }
     vector<TreeNode*> generateTrees(int n) {
