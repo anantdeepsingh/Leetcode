@@ -17,15 +17,25 @@ public:
         order.push_back(root->val);
         inorder(root->right,order);
     }
-    bool isValidBST(TreeNode* root) {
-        vector<int>order;
-        inorder(root,order);
-        for(int i=1;i<order.size();i++){
-            if(order[i]<=order[i-1]) return false;
+    bool check(TreeNode* root,long minval,long maxval){
+        if(root==NULL) return true;
+        if(root->val>minval && root->val<maxval){
+            bool left=check(root->left,minval,root->val);
+            bool right=check(root->right,root->val,maxval);
+            return left&&right;
         }
-        return  true;
+
+        return false;
+    }
+    bool isValidBST(TreeNode* root) {
+        long minval=LONG_MIN;
+        long maxval=LONG_MAX;
+        return check(root,minval,maxval);
     }
 };
 
 // logic is that the inorder of BST is always increasing
 // time complexity: O(2*n) space complexity: O(n);
+
+
+// we can use somrting min val, max Val concept for optimizing space complexity
