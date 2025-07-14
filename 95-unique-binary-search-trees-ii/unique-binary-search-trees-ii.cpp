@@ -15,14 +15,12 @@ public:
     vector<TreeNode*> generateAll(int start,int end){
         vector<TreeNode*>res;
         if(start>end){
-            res.push_back(NULL);
-            return res;
+            return {NULL};
         }
 
         if(start==end){
             TreeNode* node=new TreeNode(start);
-            res.push_back(node);
-            return res;
+            return {node};
         }
         for(int i=start;i<=end;i++){
             vector<TreeNode*>left=generateAll(start,i-1);
