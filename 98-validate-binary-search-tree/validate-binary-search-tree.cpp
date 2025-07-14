@@ -39,3 +39,4 @@ public:
 
 
 // we can use somrting min val, max Val concept for optimizing space complexity
+// time complexity: O(n) space complexity: O(1);
