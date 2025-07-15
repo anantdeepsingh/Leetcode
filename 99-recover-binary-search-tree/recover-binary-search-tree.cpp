@@ -10,16 +10,14 @@ public:
 
         traverse(root->left);
 
-        if (prev && root->val < prev->val) {
-            if (!first) {
-                first = prev;
-                middle = root;
-            } else {
-                last = root;
+        if(prev && root->val<prev->val){
+            if(!first){
+                first=prev;
+                middle=root;
             }
+            last=root;
         }
-        prev = root;
-
+        prev=root;
         traverse(root->right);
     }
 
