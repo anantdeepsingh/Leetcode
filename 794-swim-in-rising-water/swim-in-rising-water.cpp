@@ -2,33 +2,44 @@
 class Solution {
 public:
     int swimInWater(vector<vector<int>>& grid) {
-        int n = grid.size();
-        vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
-        priority_queue<t, vector<t>, greater<t>> pq;
-        pq.push({grid[0][0], 0, 0});
-        dist[0][0] = grid[0][0];
-        
-        int drow[] = {1, 0, -1, 0};
-        int dcol[] = {0, 1, 0, -1};
-        
-        while (!pq.empty()) {
-            auto [time, x, y] = pq.top();
+        priority_queue<t,vector<t>,greater<t>>pq;
+        int n=grid.size();
+        vector<vector<int>>dist(n,vector<int>(n,INT_MAX));
+        dist[0][0]=grid[0][0];
+        pq.push({grid[0][0],0,0});
+        int drow[]={1,0,-1,0};
+        int dcol[]={0,1,0,-1};
+        vector<vector<int>>vis(n,vector<int>(n,0));
+        while(!pq.empty()){
+            auto tp=pq.top();
             pq.pop();
-            
-            if (x == n-1 && y == n-1) return time;
-            
-            for (int i = 0; i < 4; i++) {
-                int nx = x + drow[i], ny = y + dcol[i];
-                if (nx >= 0 && ny >= 0 && nx < n && ny < n) {
-                    int newTime = max(time, grid[nx][ny]);
-                    if (dist[nx][ny] > newTime) {
-                        dist[nx][ny] = newTime;
-                        pq.push({newTime, nx, ny});
+            int time=get<0>(tp);
+            int x=get<1>(tp);
+            int y=get<2>(tp);
+            for(int i=0;i<4;i++){
+                int nx=x+drow[i];
+                int ny=y+dcol[i];
+
+                if(nx>=0 && nx<n && ny>=0 && ny<n && vis[nx][ny]==0){
+                    if(grid[nx][ny]>time){
+                        if(dist[nx][ny]>grid[nx][ny]){
+                            dist[nx][ny]=grid[nx][ny];
+                            pq.push({dist[nx][ny],nx,ny});
+                            vis[nx][ny]=1;
+                        }
+                        
+                    }
+                    else{
+                        if(dist[nx][ny]>time){
+                            dist[nx][ny]=time;
+                            pq.push({time,nx,ny});
+                            vis[nx][ny]=1;
+                        }
+                        
                     }
                 }
             }
         }
-        
-        return -1; // should never reach here
+        return dist[n-1][n-1];
     }
 };
