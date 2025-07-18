@@ -22,9 +22,9 @@ public:
             auto[time,node]=pq.top();
             pq.pop();
 
-            // if(node==n-1){
-            //     break;
-            // }
+            if(node==n-1){
+                break;
+            }
             for(auto &&it:adj[node]){
                 int v=it.first;
                 long long wt=it.second;
