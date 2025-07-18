@@ -9,7 +9,6 @@ public:
         pq.push({grid[0][0],0,0});
         int drow[]={1,0,-1,0};
         int dcol[]={0,1,0,-1};
-        vector<vector<int>>vis(n,vector<int>(n,0));
         while(!pq.empty()){
             auto tp=pq.top();
             pq.pop();
@@ -20,12 +19,11 @@ public:
                 int nx=x+drow[i];
                 int ny=y+dcol[i];
 
-                if(nx>=0 && nx<n && ny>=0 && ny<n && vis[nx][ny]==0){
+                if(nx>=0 && nx<n && ny>=0 && ny<n){
                     if(grid[nx][ny]>time){
                         if(dist[nx][ny]>grid[nx][ny]){
                             dist[nx][ny]=grid[nx][ny];
                             pq.push({dist[nx][ny],nx,ny});
-                            vis[nx][ny]=1;
                         }
                         
                     }
@@ -33,7 +31,6 @@ public:
                         if(dist[nx][ny]>time){
                             dist[nx][ny]=time;
                             pq.push({time,nx,ny});
-                            vis[nx][ny]=1;
                         }
                         
                     }
