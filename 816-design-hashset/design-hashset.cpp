@@ -3,8 +3,8 @@ public:
     vector<list<int>>vec;
     int cap;
     MyHashSet() {
-        vec.resize(15000);
-        cap=15000;
+        vec.resize(10001);
+        cap=10001;
     }
     void add(int key) {
         int rem=key%cap;
@@ -36,3 +36,5 @@ public:
  * obj->remove(key);
  * bool param_3 = obj->contains(key);
  */
+
+//  this method is called seperate chaining the load factor should be less than equals 0.75
