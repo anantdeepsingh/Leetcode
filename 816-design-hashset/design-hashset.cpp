@@ -1,20 +1,31 @@
 class MyHashSet {
 public:
-    vector<int>con;
+    vector<list<int>>vec;
+    int cap;
     MyHashSet() {
-        con.resize(1e6+1,0);
+        vec.resize(15000);
+        cap=15000;
     }
-    
     void add(int key) {
-        con[key]=1;
+        int rem=key%cap;
+        auto it=find(vec[rem].begin(),vec[rem].end(),key);
+        if(it==vec[rem].end()){
+            vec[rem].push_back(key);
+        }
     }
     
     void remove(int key) {
-        con[key]=0;
+        int rem=key%cap;
+        auto it=find(vec[rem].begin(),vec[rem].end(),key);
+        if(it!=vec[rem].end()){
+            vec[rem].erase(it);
+        }
     }
     
     bool contains(int key) {
-        return con[key]==1;
+        int rem=key%cap;
+        auto it=find(vec[rem].begin(),vec[rem].end(),key);
+        return it!=vec[rem].end();
     }
 };
 
