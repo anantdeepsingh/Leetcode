@@ -3,7 +3,7 @@ class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         int n=grid.size();
-        priority_queue<t,vector<t>,greater<t>>pq;
+        queue<t>pq;
         vector<vector<int>>dist(n,vector<int>(n,1e9));
 
         if(grid[0][0]!=0) return -1;
@@ -11,7 +11,7 @@ public:
         dist[0][0]=1;
 
         while(!pq.empty()){
-            auto [length,x,y]=pq.top();
+            auto [length,x,y]=pq.front();
             pq.pop();
 
             if(x==n-1 && y==n-1){
@@ -40,3 +40,6 @@ public:
         return -1;
     }
 };
+
+// time complexity: O(n*n+n*nlog(n))
+// space complexiuty: O(n*n)
