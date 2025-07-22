@@ -3,8 +3,8 @@ public:
     vector<list<int>>vec;
     int cap;
     MyHashSet() {
-        vec.resize(10001);
-        cap=10001;
+        vec.resize(12000);
+        cap=12000;
     }
     void add(int key) {
         int rem=key%cap;
