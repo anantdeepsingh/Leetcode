@@ -1,7 +1,7 @@
 #define t tuple<int,int,int>
 class Solution {
 public:
-    bool Check(int mid,vector<vector<int>>& heights,int n,int m){
+    int Check(int mid,vector<vector<int>>& heights,int n,int m){
         priority_queue<t,vector<t>,greater<t>>pq;
         vector<vector<int>>dist(n,vector<int>(m,1e8));
         pq.push({0,0,0});
@@ -12,7 +12,7 @@ public:
             auto [effort,x,y]=pq.top();
             pq.pop();
             if(x==n-1 && y==m-1){
-                return effort<=mid;
+                return effort;
             }
 
             for(int i=0;i<4;i++){
@@ -29,22 +29,24 @@ public:
 
         }
 
-        return false;
+        return INT_MAX;
     }
     int minimumEffortPath(vector<vector<int>>& heights) {
         int n=heights.size();
         int m=heights[0].size();
-        int low=0,high=1e6;
-        while(low<=high){
-            int mid=low+(high-low)/2;
-            if(Check(mid,heights,n,m)){
-                high=mid-1;
-            }
-            else{
-                low=mid+1;
-            }
-        }
-        return low;
+        // int low=0,high=1e6;
+        // while(low<=high){
+        //     int mid=low+(high-low)/2;
+        //     if(Check(mid,heights,n,m)){
+        //         high=mid-1;
+        //     }
+        //     else{
+        //         low=mid+1;
+        //     }
+        // }
+        // return low;
+
+        return Check(0,heights,n,m);
     }
 };
 
