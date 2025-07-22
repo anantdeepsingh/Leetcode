@@ -1,20 +1,20 @@
 class MyHashSet {
 public:
-    set<int>st;
+    vector<int>con;
     MyHashSet() {
-        
+        con.resize(1e6+1,0);
     }
     
     void add(int key) {
-        st.insert(key);
+        con[key]=1;
     }
     
     void remove(int key) {
-        st.erase(key);
+        con[key]=0;
     }
     
     bool contains(int key) {
-        return st.find(key)!=st.end();
+        return con[key]==1;
     }
 };
 
