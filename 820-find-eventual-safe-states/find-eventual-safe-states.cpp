@@ -11,12 +11,14 @@ public:
             }
         }
 
+        // O(E)
         queue<int>q;
         for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 q.push(i);
             }
         }
+        // O(V)
         vector<int>ans;
         while(!q.empty()){
             int node=q.front();
@@ -29,8 +31,11 @@ public:
                 }
             }
         }
-
-        sort(ans.begin(),ans.end());
+        // O(V)
+        sort(ans.begin(),ans.end()); //O(VlogV)
         return ans;
     }
 };
+
+// time complexity: O(VlogV)
+// space complexity:O(3*V)
