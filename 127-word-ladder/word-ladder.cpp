@@ -5,7 +5,7 @@ public:
         for(auto &it:wordList){
             mp[it]++;
         }
-
+        // O(N)
         if(mp.count(endWord)==0) return 0;
 
         queue<pair<int,string>>q;
@@ -34,3 +34,5 @@ public:
         return 0;
     }
 };
+// time complexity : O(N)+ O(N*M*26)
+// space complexity : O(3*N)
