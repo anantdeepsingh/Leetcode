@@ -5,77 +5,67 @@
  *     TreeNode *left;
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x) : left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 public:
-    void traverse(TreeNode* root, TreeNode* par, int key) {
-        if (root == NULL) return;
-
-        if (root->val == key) {
-            // Node found
-            if (root->right) {
-                // Find in-order successor
-                TreeNode* succ = root->right;
-                TreeNode* succPar = root;
-
-                while (succ->left) {
-                    succPar = succ;
-                    succ = succ->left;
+    void traverse(TreeNode* root,TreeNode* par,int key){
+        // base case 
+        if(root==NULL) return;
+        if(root->val==key){
+            TreeNode* left=root->left;
+            TreeNode* right=root->right;
+            if(right){
+                TreeNode* temp=right;
+                while(temp->left!=NULL){
+                    temp=temp->left;
                 }
-
-                // If successor is not root->right directly
-                if (succPar != root) {
-                    succPar->left = succ->right; // remove successor from its place
-                    succ->right = root->right;
+                if(par->left==root){
+                    par->left=right;
+                    temp->left=left;
                 }
-                succ->left = root->left;
-
-                if (par->left == root) {
-                    par->left = succ;
-                } else if (par->right == root) {
-                    par->right = succ;
+                else if(par->right==root){
+                    par->right=right;
+                    temp->left=left;
                 }
-
-                delete root;
-            } else if (root->left) {
-                // No right child, but left child
-                if (par->left == root) {
-                    par->left = root->left;
-                } else if (par->right == root) {
-                    par->right = root->left;
-                }
-                delete root;
-            } else {
-                // Leaf node
-                if (par->left == root) {
-                    par->left = nullptr;
-                } else if (par->right == root) {
-                    par->right = nullptr;
-                }
-                delete root;
             }
+            else if(left){
+                if(par!=root){
+                    if(par->left==root){
+                        par->left=left;
+                    }
+                    else{
+                        par->right=left;
+                    }
+                }
+            }
+            else{
+                if(par!=root){
+                    if(par->left==root){
+                        par->left=NULL;
+                    }
+                    else{
+                        par->right=NULL;
+                    }
+                }
+            }
+            delete root;
             return;
         }
-
-        if (key < root->val) {
-            traverse(root->left, root, key);
-        } else {
-            traverse(root->right, root, key);
+        if(root->val>key){
+            traverse(root->left,root,key);
+        }
+        else{
+            traverse(root->right,root,key);
         }
     }
-
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if (!root) return nullptr;
-
-        // Special case: if the root itself needs to be deleted
-        TreeNode dummy(0);
-        dummy.left = root;
-
-        traverse(root, &dummy, key);
-
-        return dummy.left;
+        if(root==NULL) return NULL;
+        TreeNode* dummy=new TreeNode(-1);
+        dummy->left=root;
+        traverse(root,dummy,key);
+        return dummy->left;
     }
 };
