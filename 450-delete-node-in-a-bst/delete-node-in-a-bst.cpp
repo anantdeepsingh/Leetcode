@@ -14,6 +14,13 @@ public:
     void traverse(TreeNode* root,TreeNode* par,int key){
         // base case 
         if(root==NULL) return;
+       
+        if(root->val>key){
+            traverse(root->left,root,key);
+        }
+        else{
+            traverse(root->right,root,key);
+        }
         if(root->val==key){
             TreeNode* left=root->left;
             TreeNode* right=root->right;
@@ -53,12 +60,6 @@ public:
             }
             delete root;
             return;
-        }
-        if(root->val>key){
-            traverse(root->left,root,key);
-        }
-        else{
-            traverse(root->right,root,key);
         }
     }
     TreeNode* deleteNode(TreeNode* root, int key) {
