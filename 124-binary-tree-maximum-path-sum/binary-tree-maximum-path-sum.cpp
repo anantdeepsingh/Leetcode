@@ -14,12 +14,14 @@ public:
     int mx=INT_MIN;
     int Sum(TreeNode* root){
         if(root==NULL) return 0;
-        int lsum=max(0,Sum(root->left));
-        int rsum=max(0,Sum(root->right));
+        int lsum=Sum(root->left);
+        int rsum=Sum(root->right);
 
-        // cout<<lsum<<" "<<rsum<<endl;
-        mx=max({mx,lsum+rsum+root->val});
-        return max(lsum,rsum)+root->val;
+        int op1=lsum+rsum+root->val;
+        int op2=max(lsum,rsum)+root->val;
+        int op3=root->val;
+        mx=max({mx,op1,op2,op3});
+        return max(op2,op3);
     }
     int maxPathSum(TreeNode* root) {
         Sum(root);
