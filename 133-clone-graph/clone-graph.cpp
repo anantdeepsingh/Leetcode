@@ -1,46 +1,30 @@
-/*
-// Definition for a Node.
-class Node {
-public:
-    int val;
-    vector<Node*> neighbors;
-    Node() {
-        val = 0;
-        neighbors = vector<Node*>();
-    }
-    Node(int _val) {
-        val = _val;
-        neighbors = vector<Node*>();
-    }
-    Node(int _val, vector<Node*> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
-    }
-};
-*/
-// each of them is provided with their val of itself and vector of address of thier neighbours
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        if(node==NULL) return node;
-        map<Node*,Node*>mp;
-        mp[node]=new Node(node->val);
-        queue<Node*>q;
+        if (node == NULL) return node;
+
+        queue<Node*> q;
+        unordered_map<Node*, Node*> mp;
+        mp[node] = new Node(node->val);
         q.push(node);
-        while(!q.empty()){
-            Node* node=q.front();
+
+        while (!q.empty()) {
+            Node* temp = q.front();
             q.pop();
-            for(auto it:node->neighbors){
-                if(!mp[it]){
-                    mp[it]=new Node(it->val);
+
+            vector<Node*> adj; 
+
+            for (auto it : temp->neighbors) {
+                if (!mp[it]) {
+                    mp[it] = new Node(it->val);  // clone neighbor
                     q.push(it);
                 }
-
-                mp[node]->neighbors.push_back(mp[it]);
+                adj.push_back(mp[it]);  // push clone neighbor
             }
+
+            mp[temp]->neighbors = adj;  // set clone's neighbors
         }
 
-        return mp[node];
+        return mp[node];  // return clone of original start
     }
 };
-
