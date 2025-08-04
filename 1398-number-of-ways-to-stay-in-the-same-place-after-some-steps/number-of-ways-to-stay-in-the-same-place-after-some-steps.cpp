@@ -1,20 +1,25 @@
-const int mod = 1e9 + 7;
+const int mod=1e9+7;
 class Solution {
 public:
     int numWays(int steps, int arrLen) {
         int n = min(arrLen, steps + 1);
-        vector<vector<long long>> dp(steps + 1, vector<long long>(n, 0));
+        vector<vector<long long>>dp(n+1,vector<long long>(steps+1,0));
+        dp[0][0]=1ll;
 
-        dp[0][0] = 1;
 
-        for (int s = 1; s <= steps; ++s) {
-            for (int i = 0; i < n; ++i) {
-                dp[s][i] = dp[s - 1][i] % mod; // stay
-                if (i - 1 >= 0) dp[s][i] = (dp[s][i] + dp[s - 1][i - 1]) % mod;
-                if (i + 1 < n) dp[s][i] = (dp[s][i] + dp[s - 1][i + 1]) % mod;
-            }
+
+
+        for(int s=1;s<=steps;s++){
+            for(int i=n-1;i>=0;i--){
+                long long op1=0,op2=0,op3=0;
+                if(i+1<=n-1) op1=dp[i+1][s-1]%mod;
+                if(i<=n-1) op2=dp[i][s-1]%mod;
+                if(i-1>=0) op3=dp[i-1][s-1]%mod;
+                dp[i][s]=(1ll*op1%mod+op2%mod+op3%mod)%mod;
+            }    
         }
+       
 
-        return dp[steps][0];
+        return dp[0][steps];
     }
 };
