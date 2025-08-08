@@ -1,49 +1,38 @@
 class Solution {
 public:
-    int maximalSquare(vector<vector<char>>& matrix) {
-        int n = matrix.size();
-        int m = matrix[0].size();
-        int ans = 0;
-        vector<int> heights(m, 0);  // Histogram heights for each row
+    int maximalSquare(vector<vector<char>>& mt) {
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix[i][j] == '1') {
-                    heights[j] += 1;
-                } else {
-                    heights[j] = 0;
-                }
+        int n=mt.size();
+        int m=mt[0].size();
+        vector<vector<int>>matrix(n,vector<int>(m));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                matrix[i][j]=(mt[i][j]=='1')?1:0;
             }
-            vector<int> next_smaller(m, m);
-            stack<int> st;
-            for (int j = m - 1; j >= 0; j--) {
-                while (!st.empty() && heights[st.top()] >= heights[j]) {
-                    st.pop();
-                }
-                if (!st.empty()) {
-                    next_smaller[j] = st.top();
-                }
-                st.push(j);
-            }
-            vector<int> prev_smaller(m, -1);
-            while (!st.empty()) st.pop(); // Clear stack
-            for (int j = 0; j < m; j++) {
-                while (!st.empty() && heights[st.top()] >= heights[j]) {
-                    st.pop();
-                }
-                if (!st.empty()) {
-                    prev_smaller[j] = st.top();
-                }
-                st.push(j);
-            }
-            for (int j = 0; j < m; j++) {
-                int height = heights[j];
-                int width = next_smaller[j] - prev_smaller[j] - 1;
-                int side = min(height, width);
-                ans = max(ans, side * side);
+        }
+        vector<vector<int>>dp(n,vector<int>(m,0));
+        for(int i=0;i<m;i++){
+            dp[0][i]=matrix[0][i];
+        }
+        for(int i=1;i<n;i++){
+            dp[i][0]=matrix[i][0];
+        }
+
+
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                if(matrix[i][j]==0) continue;
+                dp[i][j]=1+min({dp[i][j-1],dp[i-1][j],dp[i-1][j-1]});
             }
         }
 
-        return ans;
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cnt=max(cnt,dp[i][j]);
+            }
+        }
+
+        return cnt*cnt;
     }
 };
