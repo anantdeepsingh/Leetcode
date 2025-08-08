@@ -1,25 +1,29 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if(x==0) return true;
-        if(x<0) return false;
-        string s=to_string(x);
-        int len=s.size();
+       if(x==0) return true;
+       if(x<0) return false;
+       long long temp=0ll;
+       int cpy=x;
+       while(cpy>0){
+        int rem=cpy%10;
+        temp=1ll*temp*10+rem;
+        cpy=cpy/10;
+       }
 
-        int left=0,right=len-1;
-        while(left<right){
-            if(s[left]!=s[right]) return false;
-            left++;
-            right--;
-        }
+        return temp==x;
 
-
-        return true;
     }
 };
 /*
 
 
+
+
+
+453
+350+4
+354
 
 45759
 
