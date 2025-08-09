@@ -20,7 +20,7 @@ public:
             }
         	printFoo();
             turn=1;
-            cv.notify_all();
+            cv.notify_one();
         }
     }
 
@@ -35,7 +35,7 @@ public:
             }
         	printBar();
             turn=0;
-            cv.notify_all();
+            cv.notify_one();
         }
     }
 };
