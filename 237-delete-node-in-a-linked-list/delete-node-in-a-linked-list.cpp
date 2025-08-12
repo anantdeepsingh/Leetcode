@@ -19,5 +19,7 @@ public:
             temp=nxt;
         }
         prev->next=NULL;
+        delete temp;
+        
     }
 };
