@@ -7,7 +7,11 @@ public:
         return false;
     }
     bool isPowerOfFour(int n) {
-        if(n<0) return false;
-        return Check(n);
+        if(n<=0) return false;
+        int cnt=__builtin_popcount(n);
+        if(cnt>1) return 0;
+        int ind=__builtin_ctz(n);
+        if(ind%2==0) return true;
+        return 0;
     }
 };
