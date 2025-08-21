@@ -35,7 +35,7 @@ public:
             for(int j=0;j<m;j++){
                 int ind=left[j];
                 if(ind==-1){
-                    sum[j]+=(j+1)*mat[i][j];
+                    sum[j]=(j+1)*mat[i][j];
                 }
                 else{
                     sum[j]=sum[ind]+(j-ind)*mat[i][j];
