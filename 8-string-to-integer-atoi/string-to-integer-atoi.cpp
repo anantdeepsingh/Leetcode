@@ -24,10 +24,10 @@ public:
         while(i<n && isdigit(s[i])){
             int d=s[i]-'0';
             res=res*10+d;
-            if(1ll*sign*res>INT_MAX) return INT_MAX;
-            if(1ll*sign*res<INT_MIN) return INT_MIN;
+            if(1ll*sign*res>=INT_MAX) return INT_MAX;
+            if(1ll*sign*res<=INT_MIN) return INT_MIN;
             i++;
         }
-        return res*sign;
+        return (int)res*sign;
     }
 };
