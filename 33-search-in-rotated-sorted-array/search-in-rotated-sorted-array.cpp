@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // the core idea is to identify sorted half
     int search(vector<int>& nums, int target) {
         int n=nums.size();
        int low=0,high=n-1;
@@ -11,6 +12,7 @@ public:
             break;
         }
         else if(nums[low]<=nums[mid]){
+            // left part sorted 
             if(target>=nums[low] && target<=nums[mid]){
                 high=mid-1;
             }
@@ -19,6 +21,7 @@ public:
             }
         }
         else{
+            // right side sorted
             if(target>=nums[mid] && target<=nums[high]){
                 low=mid+1;
             }
