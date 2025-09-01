@@ -10,7 +10,7 @@ public:
             double b=1.0*(classes[i][1]);
             double r1=a/b;
             double r2=(a+1)/(b+1);
-            pq.push({(r2-r1),i});
+            pq.push({1.0*(r2-r1),i});
         }
 
         while(extraStudents>0){
