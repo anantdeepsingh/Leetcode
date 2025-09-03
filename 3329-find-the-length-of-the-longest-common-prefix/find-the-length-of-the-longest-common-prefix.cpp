@@ -1,7 +1,7 @@
 class Solution {
 public:
     int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
-        map<string,int>mp;
+        unordered_map<string,int>mp;
         for(auto &it:arr1){
             string t=to_string(it);
             string res="";
