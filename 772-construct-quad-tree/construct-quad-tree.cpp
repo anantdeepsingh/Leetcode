@@ -57,10 +57,10 @@ public:
         return {1,1};
     }
     Node* f(int r1,int c1,int r2,int c2,vector<vector<int>>& grid){
-        if(r1==r2 && c1==c2){
-            Node* temp=new Node(grid[r1][c1],1);
-            return temp;
-        }
+        // if(r1==r2 && c1==c2){
+        //     Node* temp=new Node(grid[r1][c1],1);
+        //     return temp;
+        // }
         Node* root=new Node();
         // Node* topLeft=NULL;
         // Node* topRight=NULL;
@@ -84,3 +84,6 @@ public:
         return f(0,0,n-1,n-1,grid);
     }
 };
+
+// time complexity : O(N*N)
+// space complexity : O(log(N))
