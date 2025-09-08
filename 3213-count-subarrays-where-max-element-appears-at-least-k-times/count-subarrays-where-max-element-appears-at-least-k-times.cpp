@@ -1,29 +1,28 @@
-#define ll long long
+#define ll long long 
 class Solution {
 public:
     long long countSubarrays(vector<int>& nums, int k) {
-        ll cnt=0ll;
         int n=nums.size();
-        int l=0,r=0;
         ll total=(1ll*n*(n+1))/2;
         int maxi=*max_element(nums.begin(),nums.end());
-        map<int,int>mp;
+        ll lessK=0ll;
+        int cnt=0;
+        int l=0,r=0;
         while(r<n){
-            mp[nums[r]]++;
-            while(mp[maxi]>=k){
-                mp[nums[l]]--;
-                if(mp[nums[l]]==0){
-                    mp.erase(nums[l]);
+            if(nums[r]==maxi){
+                cnt++;
+            }
+            while(cnt>=k){
+                if(nums[l]==maxi){
+                    cnt--;
                 }
                 l++;
             }
-
-            if(mp[maxi]<k){
-                cnt+=1ll*(r-l+1);
+            if(cnt<k){
+                lessK+=1ll*(r-l+1);
             }
             r++;
         }
-
-        return total-cnt;
+        return total-lessK;
     }
 };
