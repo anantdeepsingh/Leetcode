@@ -1,3 +1,9 @@
 # Write your MySQL query statement below
-
-SELECT employee_id from Employees where salary<30000 and manager_id NOT in (select employee_id from Employees) order by employee_id;
+select e.employee_id
+from Employees e
+where salary<30000 and (e.manager_id is not null)  and 0>=(
+    select count(*)
+    from Employees e1
+    where e.manager_id=e1.employee_id
+) 
+order by e.employee_id
