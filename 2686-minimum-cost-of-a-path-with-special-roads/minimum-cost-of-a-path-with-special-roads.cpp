@@ -56,16 +56,10 @@ public:
             int node1 = mp1[{u,v}];
             int node2 = mp1[{x,y}];
 
-            bool found = false;
-            // for(auto &it : adj[node1]){
-            //     if(it.first == node2){
-            //         it.second = min(it.second, wt);
-            //         found = true;
-            //         break;
-            //     }
-            // }
-            if(!found){
-                adj[node1].push_back({node2, wt}); 
+            for(auto &it:adj[node1]){
+                if(it.first==node2){
+                    it.second=min(it.second,wt);
+                }
             }
         }
 
