@@ -14,7 +14,7 @@ public:
     }
     int minimumTotal(vector<vector<int>>& triangle) {
         n=triangle.size();
-        dp.assign(n,vector<int>(205,1e8));
+        dp.assign(n,vector<int>(n+1,1e8));
         return f(0,0,triangle);
     }
 };
