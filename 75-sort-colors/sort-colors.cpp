@@ -1,49 +1,33 @@
 class Solution {
 public:
-    void merge(vector<int>&nums,int low,int mid,int high){
-        vector<int>temp;
-        int l=low,r=mid+1;
-        while(l<=mid && r<=high){
-            if(nums[l]<=nums[r]){
-                temp.push_back(nums[l]);
-                l++;
-            }
-            else{
-                temp.push_back(nums[r]);
-                r++;
-            }
-        }
-
-        while(l<=mid){
-            temp.push_back(nums[l]);
-            l++;
-        }
-        while(r<=high){
-            temp.push_back(nums[r]);
-            r++;
-        }
-
-
-        for(int i=low;i<=high;i++){
-            nums[i]=temp[i-low];
-        }
-    }
-    void mergeSort(vector<int>&nums,int low,int high){
-        if(low<high){
-            int mid=low+(high-low)/2;
-            mergeSort(nums,low,mid);
-            mergeSort(nums,mid+1,high);
-            merge(nums,low,mid,high);
-        }
-    }
     void sortColors(vector<int>& nums) {
+        int cnt0=0,cnt1=0,cnt2=0;
+        for(auto &it:nums){
+            if(it==0){
+                cnt0++;
+            }
+            if(it==1){
+                cnt1++;
+            }
+            if(it==2){
+                cnt2++;
+            }
+        }
         int n=nums.size();
-        mergeSort(nums,0,n-1);
+        for(int i=0;i<n;i++){
+            if(cnt0>0){
+                nums[i]=0;
+                cnt0--;
+            }
+            else if(cnt1>0){
+                nums[i]=1;
+                cnt1--;
+            }
+            else if(cnt2>0){
+                nums[i]=2;
+                cnt2--;
+            }
+        }
+
     }
 };
-
-
-/*
-dutch national flag algorithm
-
-*/
