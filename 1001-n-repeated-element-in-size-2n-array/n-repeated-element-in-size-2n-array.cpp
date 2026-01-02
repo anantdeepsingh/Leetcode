@@ -3,7 +3,7 @@ public:
     int repeatedNTimes(vector<int>& nums) {
         int sz=nums.size();
         int n=sz/2;
-        map<int,int>mp;
+        unordered_map<int,int>mp;
         for(auto &it:nums){
             mp[it]++;
         }
